@@ -4,6 +4,7 @@ import {
     relationship,
     image,
   } from '@keystone-6/core/fields';
+import {cloundImage} from './newAssets'
 
 export const Tag = list({
     ui: {
@@ -55,7 +56,7 @@ export const Tag = list({
     },
     fields: {
       name: text(),
-      image: image(),
+      image: cloundImage,
       builds: relationship({
         ref: 'Build.class',
         many: true,

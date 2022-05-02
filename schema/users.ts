@@ -5,13 +5,14 @@ import {
     password,
     checkbox,
   } from '@keystone-6/core/fields';;
+import { isAdmin } from './newAssets';
 
 export const User =  list({
     access: {
         operation: {
-            create: ({session}) => session?.data.isAdmin,
-            update: ({session}) => session?.data.isAdmin,
-            delete: ({session}) => session?.data.isAdmin,
+            create: isAdmin,
+            update: isAdmin,
+            delete: isAdmin,
           },
     },
     fields: {
@@ -26,7 +27,7 @@ export const User =  list({
       isAdmin: checkbox({
         defaultValue: false,
         access: {
-            update: ({session}) => session?.data.isAdmin,
+            update: isAdmin,
       },
       }),
       password: password({ validation: { isRequired: true } }),
@@ -34,14 +35,14 @@ export const User =  list({
         ref: 'Blog.author',
         many: true,
         ui: {
-          hideCreate: true,
+          hideCreate: !isAdmin,
         },
       }),
       builds: relationship({
         ref: 'Build.author',
         many: true,
         ui: {
-          hideCreate: true,
+          hideCreate: !isAdmin,
         },
       }),
     },

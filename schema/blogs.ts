@@ -6,11 +6,12 @@ import {
     image,
   } from '@keystone-6/core/fields';
 import { document } from '@keystone-6/fields-document';
+import { isAdmin } from './newAssets'
 
 export const Blog = list({
     access:{
         operation:{
-            delete: ({session}) => session?.data.isAdmin
+            delete: isAdmin
         }
     },
     fields: {

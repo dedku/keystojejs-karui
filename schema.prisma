@@ -71,15 +71,10 @@ model Tag {
 }
 
 model Class {
-  id              String  @id @default(cuid())
-  name            String  @default("")
-  image_filesize  Int?
-  image_extension String?
-  image_width     Int?
-  image_height    Int?
-  image_mode      String?
-  image_id        String?
-  builds          Build[] @relation("Build_class")
+  id     String  @id @default(cuid())
+  name   String  @default("")
+  image  Json?
+  builds Build[] @relation("Build_class")
 }
 
 model Post {
