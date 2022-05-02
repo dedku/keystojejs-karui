@@ -20,7 +20,6 @@ export const Blog = list({
       coverPhoto: cloundImage,
       slug: text({
         ui: { createView: { fieldMode: 'hidden' }, itemView: { fieldMode: 'hidden' } },
-        isIndexed: 'unique',
         access:{
           update: isAdmin,
           read: isAdmin

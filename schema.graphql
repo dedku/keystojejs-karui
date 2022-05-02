@@ -6,6 +6,7 @@ type Blog {
   title: String
   cardAvatar: CloudinaryImage_File
   coverPhoto: CloudinaryImage_File
+  slug: String
   status: String
   content: Blog_content_Document
   author: User
@@ -81,6 +82,7 @@ input BlogWhereInput {
   NOT: [BlogWhereInput!]
   id: IDFilter
   title: StringFilter
+  slug: StringFilter
   status: StringNullableFilter
   author: UserWhereInput
   tags: TagManyRelationFilter
@@ -169,6 +171,7 @@ input TagManyRelationFilter {
 input BlogOrderByInput {
   id: OrderDirection
   title: OrderDirection
+  slug: OrderDirection
   status: OrderDirection
 }
 
@@ -181,6 +184,7 @@ input BlogUpdateInput {
   title: String
   cardAvatar: Upload
   coverPhoto: Upload
+  slug: String
   status: String
   content: JSON
   author: UserRelateToOneForUpdateInput
@@ -214,6 +218,7 @@ input BlogCreateInput {
   title: String
   cardAvatar: Upload
   coverPhoto: Upload
+  slug: String
   status: String
   content: JSON
   author: UserRelateToOneForCreateInput
@@ -255,7 +260,6 @@ type Build_content_Document {
 
 input BuildWhereUniqueInput {
   id: ID
-  slug: String
 }
 
 input BuildWhereInput {

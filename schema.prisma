@@ -16,6 +16,7 @@ model Blog {
   title      String  @default("")
   cardAvatar Json?
   coverPhoto Json?
+  slug       String  @default("")
   status     String? @default("draft")
   content    Json    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   author     User?   @relation("Blog_author", fields: [authorId], references: [id])
@@ -30,7 +31,7 @@ model Build {
   title    String  @default("")
   class    Class?  @relation("Build_class", fields: [classId], references: [id])
   classId  String? @map("class")
-  slug     String  @unique @default("")
+  slug     String  @default("")
   skill    String  @default("")
   patch    String  @default("")
   status   String? @default("draft")

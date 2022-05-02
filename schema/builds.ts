@@ -25,7 +25,6 @@ export const Build = list({
         }),
       slug: text({
         ui: { createView: { fieldMode: 'hidden' }, itemView: { fieldMode: 'hidden' } },
-        isIndexed: 'unique',
         access:{
           update: isAdmin,
           read: isAdmin
