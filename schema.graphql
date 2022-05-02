@@ -4,8 +4,8 @@
 type Blog {
   id: ID!
   title: String
-  cardAvatar: ImageFieldOutput
-  coverPhoto: ImageFieldOutput
+  cardAvatar: CloudinaryImage_File
+  coverPhoto: CloudinaryImage_File
   status: String
   content: Blog_content_Document
   author: User
@@ -18,21 +18,53 @@ type Blog {
   tagsCount(where: TagWhereInput! = {}): Int
 }
 
-interface ImageFieldOutput {
-  id: ID!
-  filesize: Int!
-  width: Int!
-  height: Int!
-  extension: ImageExtension!
-  ref: String!
-  url: String!
+type CloudinaryImage_File {
+  id: ID
+  filename: String
+  originalFilename: String
+  mimetype: String
+  encoding: String
+  publicUrl: String
+  publicUrlTransformed(transformation: CloudinaryImageFormat): String
 }
 
-enum ImageExtension {
-  jpg
-  png
-  webp
-  gif
+"""
+Mirrors the formatting options [Cloudinary provides](https://cloudinary.com/documentation/image_transformation_reference).
+All options are strings as they ultimately end up in a URL.
+"""
+input CloudinaryImageFormat {
+  """
+   Rewrites the filename to be this pretty string. Do not include `/` or `.`
+  """
+  prettyName: String
+  width: String
+  height: String
+  crop: String
+  aspect_ratio: String
+  gravity: String
+  zoom: String
+  x: String
+  y: String
+  format: String
+  fetch_format: String
+  quality: String
+  radius: String
+  angle: String
+  effect: String
+  opacity: String
+  border: String
+  background: String
+  overlay: String
+  underlay: String
+  default_image: String
+  delay: String
+  color: String
+  color_space: String
+  dpr: String
+  page: String
+  density: String
+  flags: String
+  transformation: String
 }
 
 type Blog_content_Document {
@@ -41,26 +73,6 @@ type Blog_content_Document {
 
 input BlogWhereUniqueInput {
   id: ID
-}
-
-type LocalImageFieldOutput implements ImageFieldOutput {
-  id: ID!
-  filesize: Int!
-  width: Int!
-  height: Int!
-  extension: ImageExtension!
-  ref: String!
-  url: String!
-}
-
-type CloudImageFieldOutput implements ImageFieldOutput {
-  id: ID!
-  filesize: Int!
-  width: Int!
-  height: Int!
-  extension: ImageExtension!
-  ref: String!
-  url: String!
 }
 
 input BlogWhereInput {
@@ -167,17 +179,12 @@ enum OrderDirection {
 
 input BlogUpdateInput {
   title: String
-  cardAvatar: ImageFieldInput
-  coverPhoto: ImageFieldInput
+  cardAvatar: Upload
+  coverPhoto: Upload
   status: String
   content: JSON
   author: UserRelateToOneForUpdateInput
   tags: TagRelateToManyForUpdateInput
-}
-
-input ImageFieldInput {
-  upload: Upload
-  ref: String
 }
 
 """
@@ -205,8 +212,8 @@ input BlogUpdateArgs {
 
 input BlogCreateInput {
   title: String
-  cardAvatar: ImageFieldInput
-  coverPhoto: ImageFieldInput
+  cardAvatar: Upload
+  coverPhoto: Upload
   status: String
   content: JSON
   author: UserRelateToOneForCreateInput
@@ -227,6 +234,7 @@ type Build {
   id: ID!
   title: String
   class: Class
+  slug: String
   skill: String
   patch: String
   status: String
@@ -247,6 +255,7 @@ type Build_content_Document {
 
 input BuildWhereUniqueInput {
   id: ID
+  slug: String
 }
 
 input BuildWhereInput {
@@ -256,6 +265,7 @@ input BuildWhereInput {
   id: IDFilter
   title: StringFilter
   class: ClassWhereInput
+  slug: StringFilter
   skill: StringFilter
   patch: StringFilter
   status: StringNullableFilter
@@ -266,6 +276,7 @@ input BuildWhereInput {
 input BuildOrderByInput {
   id: OrderDirection
   title: OrderDirection
+  slug: OrderDirection
   skill: OrderDirection
   patch: OrderDirection
   status: OrderDirection
@@ -274,6 +285,7 @@ input BuildOrderByInput {
 input BuildUpdateInput {
   title: String
   class: ClassRelateToOneForUpdateInput
+  slug: String
   skill: String
   patch: String
   status: String
@@ -296,6 +308,7 @@ input BuildUpdateArgs {
 input BuildCreateInput {
   title: String
   class: ClassRelateToOneForCreateInput
+  slug: String
   skill: String
   patch: String
   status: String
@@ -494,55 +507,6 @@ type Class {
     skip: Int! = 0
   ): [Build!]
   buildsCount(where: BuildWhereInput! = {}): Int
-}
-
-type CloudinaryImage_File {
-  id: ID
-  filename: String
-  originalFilename: String
-  mimetype: String
-  encoding: String
-  publicUrl: String
-  publicUrlTransformed(transformation: CloudinaryImageFormat): String
-}
-
-"""
-Mirrors the formatting options [Cloudinary provides](https://cloudinary.com/documentation/image_transformation_reference).
-All options are strings as they ultimately end up in a URL.
-"""
-input CloudinaryImageFormat {
-  """
-   Rewrites the filename to be this pretty string. Do not include `/` or `.`
-  """
-  prettyName: String
-  width: String
-  height: String
-  crop: String
-  aspect_ratio: String
-  gravity: String
-  zoom: String
-  x: String
-  y: String
-  format: String
-  fetch_format: String
-  quality: String
-  radius: String
-  angle: String
-  effect: String
-  opacity: String
-  border: String
-  background: String
-  overlay: String
-  underlay: String
-  default_image: String
-  delay: String
-  color: String
-  color_space: String
-  dpr: String
-  page: String
-  density: String
-  flags: String
-  transformation: String
 }
 
 input ClassWhereUniqueInput {

@@ -36,6 +36,7 @@ export const User =  list({
         many: true,
         ui: {
           hideCreate: !isAdmin,
+          createView: { fieldMode: 'hidden' },
         },
       }),
       builds: relationship({
@@ -43,6 +44,7 @@ export const User =  list({
         many: true,
         ui: {
           hideCreate: !isAdmin,
+          createView: { fieldMode: 'hidden' },
         },
       }),
     },

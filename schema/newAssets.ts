@@ -1,8 +1,8 @@
 import { cloudinaryImage } from '@keystone-6/cloudinary';
 
 // Check if user is an admin
-type Session = { data: { id: string; isAdmin: boolean; }}
-export const isAdmin = ({session}:{session:Session}) => session?.data.isAdmin
+type SessionContext = { data: { id: string; isAdmin: boolean; }}
+export const isAdmin = ({session}:{session:SessionContext}) => session?.data.isAdmin
 
 // Cloud image setup
 export const cloundImage = cloudinaryImage({

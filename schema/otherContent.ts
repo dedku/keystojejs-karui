@@ -5,10 +5,11 @@ import {
     image,
   } from '@keystone-6/core/fields';
 import {cloundImage} from './newAssets'
+import { isAdmin } from './newAssets';
 
 export const Tag = list({
     ui: {
-      isHidden: ({session}) => !session?.data.isAdmin,
+      isHidden: !isAdmin,
     },
     fields: {
       name: text(),
@@ -17,14 +18,16 @@ export const Tag = list({
         ref: 'Blog.tags',
         many: true,
         ui:{
-          hideCreate:true
+          hideCreate:true,
+          createView: { fieldMode: 'hidden' },
         }
       }),
       builds: relationship({
         ref: 'Build.tags',
         many: true,
         ui:{
-          hideCreate:true
+          hideCreate:true,
+          createView: { fieldMode: 'hidden' },
         }
       }),
     },
@@ -46,13 +49,13 @@ export const Tag = list({
   export const Class = list({
     access: {
       operation: {
-          create: ({session}) => session?.data.isAdmin,
-          update: ({session}) => session?.data.isAdmin,
-          delete: ({session}) => session?.data.isAdmin,
+          create: isAdmin,
+          update: isAdmin,
+          delete: isAdmin,
         },
     },
     ui: {
-      isHidden: ({session}) => !session?.data.isAdmin,
+      isHidden: !isAdmin,
     },
     fields: {
       name: text(),

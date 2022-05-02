@@ -6,7 +6,7 @@ import {
     image,
   } from '@keystone-6/core/fields';
 import { document } from '@keystone-6/fields-document';
-import { isAdmin } from './newAssets'
+import { isAdmin, cloundImage } from './newAssets'
 
 export const Blog = list({
     access:{
@@ -16,8 +16,16 @@ export const Blog = list({
     },
     fields: {
       title: text({ validation: { isRequired: true } }),
-      cardAvatar: image(),
-      coverPhoto: image(),
+      cardAvatar: cloundImage,
+      coverPhoto: cloundImage,
+      slug: text({
+        ui: { createView: { fieldMode: 'hidden' }, itemView: { fieldMode: 'hidden' } },
+        isIndexed: 'unique',
+        access:{
+          update: isAdmin,
+          read: isAdmin
+        }
+      }),
       status: select({
         options: [
           { label: 'Published', value: 'published' },
@@ -50,7 +58,7 @@ export const Blog = list({
         hooks:{
           validateInput: ({ addValidationError, resolvedData, fieldKey }) => {
               const author = resolvedData[fieldKey];
-              if (author !== undefined || author !== null) {
+              if (author == null) {
               addValidationError(`Author = ${author}. Set author field before save`);
               }
           },
@@ -64,5 +72,18 @@ export const Blog = list({
     ui: {
       labelField: 'title',
       description: 'wtf is this, where is that?'
+    },
+    hooks:{
+      // Create slug
+      resolveInput: ({ resolvedData }) => {
+        const { title } = resolvedData;
+        if (title) {
+          return {
+            ...resolvedData,
+            slug: title?.trim()?.toLowerCase()?.replace(/[^\w ]+/g, '')?.replace(/ +/g, '-') ?? ''
+          }
+        }
+        return resolvedData;
+      }
     }
   })

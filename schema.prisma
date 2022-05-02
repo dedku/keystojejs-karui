@@ -12,25 +12,15 @@ generator client {
 }
 
 model Blog {
-  id                   String  @id @default(cuid())
-  title                String  @default("")
-  cardAvatar_filesize  Int?
-  cardAvatar_extension String?
-  cardAvatar_width     Int?
-  cardAvatar_height    Int?
-  cardAvatar_mode      String?
-  cardAvatar_id        String?
-  coverPhoto_filesize  Int?
-  coverPhoto_extension String?
-  coverPhoto_width     Int?
-  coverPhoto_height    Int?
-  coverPhoto_mode      String?
-  coverPhoto_id        String?
-  status               String? @default("draft")
-  content              Json    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  author               User?   @relation("Blog_author", fields: [authorId], references: [id])
-  authorId             String? @map("author")
-  tags                 Tag[]   @relation("Blog_tags")
+  id         String  @id @default(cuid())
+  title      String  @default("")
+  cardAvatar Json?
+  coverPhoto Json?
+  status     String? @default("draft")
+  content    Json    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  author     User?   @relation("Blog_author", fields: [authorId], references: [id])
+  authorId   String? @map("author")
+  tags       Tag[]   @relation("Blog_tags")
 
   @@index([authorId])
 }
@@ -40,6 +30,7 @@ model Build {
   title    String  @default("")
   class    Class?  @relation("Build_class", fields: [classId], references: [id])
   classId  String? @map("class")
+  slug     String  @unique @default("")
   skill    String  @default("")
   patch    String  @default("")
   status   String? @default("draft")

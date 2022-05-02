@@ -23,6 +23,14 @@ export const Build = list({
           },
           many: false
         }),
+      slug: text({
+        ui: { createView: { fieldMode: 'hidden' }, itemView: { fieldMode: 'hidden' } },
+        isIndexed: 'unique',
+        access:{
+          update: isAdmin,
+          read: isAdmin
+        }
+      }),
       skill: text({ validation: { isRequired: true } }),
       patch: text({ validation: { isRequired: true } }),
       status: select({
@@ -57,7 +65,7 @@ export const Build = list({
         hooks:{
             validateInput: ({ addValidationError, resolvedData, fieldKey }) => {
                 const author = resolvedData[fieldKey];
-                if (author !== undefined || author !== null) {
+                if (author == null) {
                 addValidationError(`Author = ${author}. Set author field before save`);
                 }
             },
@@ -71,4 +79,17 @@ export const Build = list({
     ui: {
       labelField: 'title',
     },
+    hooks:{
+      // Create slug
+      resolveInput: ({ resolvedData }) => {
+        const { title } = resolvedData;
+        if (title) {
+          return {
+            ...resolvedData,
+            slug: title?.trim()?.toLowerCase()?.replace(/[^\w ]+/g, '')?.replace(/ +/g, '-') ?? ''
+          }
+        }
+        return resolvedData;
+      }
+    }
   })
