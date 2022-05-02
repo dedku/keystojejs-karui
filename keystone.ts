@@ -5,7 +5,6 @@ import { lists } from './schema'
 import dotenv from 'dotenv'
 
 dotenv.config()
-console.log(process.env)
 
 const { withAuth } = createAuth({
   listKey: 'User',
