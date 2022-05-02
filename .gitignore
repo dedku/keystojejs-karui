@@ -1,0 +1,8 @@
+node_modules
+.keystone/admin
+keystone.db
+*.log
+.env
+package-lock.json
+yarn.lock
+readme.md
