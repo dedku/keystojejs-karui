@@ -49,6 +49,7 @@ model User {
   name     String  @default("")
   email    String  @unique @default("")
   slug     String  @default("")
+  image    Json?
   isAdmin  Boolean @default(false)
   password String
   blogs    Blog[]  @relation("Blog_author")

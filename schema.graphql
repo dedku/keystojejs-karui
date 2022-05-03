@@ -331,6 +331,7 @@ type User {
   name: String
   email: String
   slug: String
+  image: CloudinaryImage_File
   isAdmin: Boolean
   password: PasswordState
   blogs(
@@ -400,6 +401,7 @@ input UserUpdateInput {
   name: String
   email: String
   slug: String
+  image: Upload
   isAdmin: Boolean
   password: String
   blogs: BlogRelateToManyForUpdateInput
@@ -429,6 +431,7 @@ input UserCreateInput {
   name: String
   email: String
   slug: String
+  image: Upload
   isAdmin: Boolean
   password: String
   blogs: BlogRelateToManyForCreateInput
