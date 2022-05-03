@@ -3,7 +3,6 @@ import {
     text,
     relationship,
     select,
-    image,
   } from '@keystone-6/core/fields';
 import { document } from '@keystone-6/fields-document';
 import { isAdmin, cloundImage, showIfAdmin } from './newAssets'

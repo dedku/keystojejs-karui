@@ -5,7 +5,8 @@ import {
     password,
     checkbox,
   } from '@keystone-6/core/fields';;
-import { filterUser, isAdmin, showIfAdmin } from './newAssets';
+import { filterUser, isAdmin, showIfAdmin, cloundImage } from './newAssets';
+
 
 export const User =  list({
     access: {
@@ -32,6 +33,7 @@ export const User =  list({
           read: isAdmin
         }
       }),
+      image: cloundImage,
       isAdmin: checkbox({
         defaultValue: false,
         access: {
