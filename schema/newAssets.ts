@@ -1,4 +1,6 @@
 import { cloudinaryImage } from '@keystone-6/cloudinary';
+import dotenv from 'dotenv'
+dotenv.config()
 
 // Check if user is an admin
 type SessionContext = { data: { id: string; isAdmin: boolean; }}

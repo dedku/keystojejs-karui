@@ -48,6 +48,7 @@ model User {
   id       String  @id @default(cuid())
   name     String  @default("")
   email    String  @unique @default("")
+  slug     String  @default("")
   isAdmin  Boolean @default(false)
   password String
   blogs    Blog[]  @relation("Blog_author")

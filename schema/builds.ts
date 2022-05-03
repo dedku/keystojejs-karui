@@ -21,7 +21,17 @@ export const Build = list({
             hideCreate: true,
             linkToItem: true,
           },
-          many: false
+          many: false,
+          hooks:{
+            validateInput: ({ addValidationError, resolvedData, fieldKey, operation }) => {
+              if(operation == 'create'){
+                  const classSelect = resolvedData[fieldKey];
+                  if (classSelect == null) {
+                  addValidationError(`Class = ${classSelect}. Set class field before save`);
+                  }
+              }
+            },
+        }
         }),
       slug: text({
         ui: { createView: { fieldMode: 'hidden' }, itemView: { fieldMode: 'hidden' } },
@@ -62,11 +72,13 @@ export const Build = list({
         },
         many:false,
         hooks:{
-            validateInput: ({ addValidationError, resolvedData, fieldKey }) => {
-                const author = resolvedData[fieldKey];
-                if (author == null) {
-                addValidationError(`Author = ${author}. Set author field before save`);
-                }
+            validateInput: ({ addValidationError, resolvedData, fieldKey, operation }) => {
+              if(operation == 'create'){
+                  const author = resolvedData[fieldKey];
+                  if (author == null) {
+                  addValidationError(`Author = ${author}. Set author field before save`);
+                  }
+              }
             },
         }
       }),

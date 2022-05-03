@@ -24,6 +24,13 @@ export const User =  list({
         isIndexed: 'unique',
         isFilterable: true,
       }),
+      slug: text({
+        ui: { createView: { fieldMode: 'hidden' }, itemView: { fieldMode: 'hidden' } },
+        access:{
+          update: isAdmin,
+          read: isAdmin
+        }
+      }),
       isAdmin: checkbox({
         defaultValue: false,
         access: {
@@ -50,5 +57,18 @@ export const User =  list({
     },
     ui:{
       isHidden: ({session}) => !session?.data.isAdmin,
+    },
+    hooks:{
+      // Create slug
+      resolveInput: ({ resolvedData }) => {
+        const { title } = resolvedData;
+        if (title) {
+          return {
+            ...resolvedData,
+            slug: title?.trim()?.toLowerCase()?.replace(/[^\w ]+/g, '')?.replace(/ +/g, '-') ?? ''
+          }
+        }
+        return resolvedData;
+      }
     }
   })

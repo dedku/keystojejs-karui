@@ -55,13 +55,15 @@ export const Blog = list({
         },
         many:false,
         hooks:{
-          validateInput: ({ addValidationError, resolvedData, fieldKey }) => {
-              const author = resolvedData[fieldKey];
-              if (author == null) {
-              addValidationError(`Author = ${author}. Set author field before save`);
-              }
+          validateInput: ({ addValidationError, resolvedData, fieldKey, operation }) => {
+            if(operation == 'create'){
+                const author = resolvedData[fieldKey];
+                if (author == null) {
+                addValidationError(`Author = ${author}. Set author field before save`);
+                }
+            }
           },
-      }
+        }
       }),
       tags: relationship({
         ref: 'Tag.blogs',

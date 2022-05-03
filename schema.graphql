@@ -330,6 +330,7 @@ type User {
   id: ID!
   name: String
   email: String
+  slug: String
   isAdmin: Boolean
   password: PasswordState
   blogs(
@@ -364,6 +365,7 @@ input UserWhereInput {
   id: IDFilter
   name: StringFilter
   email: StringFilter
+  slug: StringFilter
   isAdmin: BooleanFilter
   blogs: BlogManyRelationFilter
   builds: BuildManyRelationFilter
@@ -390,12 +392,14 @@ input UserOrderByInput {
   id: OrderDirection
   name: OrderDirection
   email: OrderDirection
+  slug: OrderDirection
   isAdmin: OrderDirection
 }
 
 input UserUpdateInput {
   name: String
   email: String
+  slug: String
   isAdmin: Boolean
   password: String
   blogs: BlogRelateToManyForUpdateInput
@@ -424,6 +428,7 @@ input UserUpdateArgs {
 input UserCreateInput {
   name: String
   email: String
+  slug: String
   isAdmin: Boolean
   password: String
   blogs: BlogRelateToManyForCreateInput

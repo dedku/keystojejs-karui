@@ -9,7 +9,7 @@ import { isAdmin } from './newAssets';
 
 export const Tag = list({
     ui: {
-      isHidden: !isAdmin,
+      isHidden: true,
     },
     fields: {
       name: text(),
@@ -20,6 +20,7 @@ export const Tag = list({
         ui:{
           hideCreate:true,
           createView: { fieldMode: 'hidden' },
+          itemView: { fieldMode: 'hidden' }
         }
       }),
       builds: relationship({
@@ -55,7 +56,7 @@ export const Tag = list({
         },
     },
     ui: {
-      isHidden: !isAdmin,
+      isHidden: true,
     },
     fields: {
       name: text(),
@@ -64,7 +65,9 @@ export const Tag = list({
         ref: 'Build.class',
         many: true,
         ui:{
-          hideCreate:true
+          hideCreate:true,
+          createView: { fieldMode: 'hidden' },
+          itemView: { fieldMode: 'hidden' }
         }
       }),
     },
