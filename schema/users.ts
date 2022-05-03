@@ -62,11 +62,11 @@ export const User =  list({
     hooks:{
       // Create slug
       resolveInput: ({ resolvedData }) => {
-        const { title } = resolvedData;
-        if (title) {
+        const { name } = resolvedData;
+        if (name) {
           return {
             ...resolvedData,
-            slug: title?.trim()?.toLowerCase()?.replace(/[^\w ]+/g, '')?.replace(/ +/g, '-') ?? ''
+            slug: name?.trim()?.toLowerCase()?.replace(/[^\w ]+/g, '')?.replace(/ +/g, '-') ?? ''
           }
         }
         return resolvedData;
