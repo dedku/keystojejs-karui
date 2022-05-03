@@ -5,15 +5,16 @@ import {
     password,
     checkbox,
   } from '@keystone-6/core/fields';;
-import { isAdmin } from './newAssets';
+import { filterUser, isAdmin, showIfAdmin } from './newAssets';
 
 export const User =  list({
     access: {
         operation: {
-            create: isAdmin,
-            update: isAdmin,
             delete: isAdmin,
-          },
+        },
+        filter: {
+          query: filterUser,
+        }
     },
     fields: {
       name: text({
@@ -25,7 +26,7 @@ export const User =  list({
         isFilterable: true,
       }),
       slug: text({
-        ui: { createView: { fieldMode: 'hidden' }, itemView: { fieldMode: 'hidden' } },
+        ui: { createView: { fieldMode: showIfAdmin }, itemView: { fieldMode: showIfAdmin } },
         access:{
           update: isAdmin,
           read: isAdmin
@@ -35,7 +36,10 @@ export const User =  list({
         defaultValue: false,
         access: {
             update: isAdmin,
-      },
+        },
+        ui:{
+           createView: { fieldMode: showIfAdmin }, itemView: { fieldMode: showIfAdmin }
+        }
       }),
       password: password({ validation: { isRequired: true } }),
       blogs: relationship({
@@ -54,9 +58,6 @@ export const User =  list({
           createView: { fieldMode: 'hidden' },
         },
       }),
-    },
-    ui:{
-      isHidden: ({session}) => !session?.data.isAdmin,
     },
     hooks:{
       // Create slug

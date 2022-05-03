@@ -553,49 +553,144 @@ input ClassCreateInput {
   builds: BuildRelateToManyForCreateInput
 }
 
-type Post {
+type PostCategory {
   id: ID!
   name: String
   icon: String
   subtitle: String
+  status: String
+  content(
+    where: PostContentWhereInput! = {}
+    orderBy: [PostContentOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [PostContent!]
+  contentCount(where: PostContentWhereInput! = {}): Int
 }
 
-input PostWhereUniqueInput {
+input PostCategoryWhereUniqueInput {
   id: ID
 }
 
-input PostWhereInput {
-  AND: [PostWhereInput!]
-  OR: [PostWhereInput!]
-  NOT: [PostWhereInput!]
+input PostCategoryWhereInput {
+  AND: [PostCategoryWhereInput!]
+  OR: [PostCategoryWhereInput!]
+  NOT: [PostCategoryWhereInput!]
   id: IDFilter
   name: StringFilter
   icon: StringFilter
   subtitle: StringFilter
+  status: StringNullableFilter
+  content: PostContentManyRelationFilter
 }
 
-input PostOrderByInput {
+input PostContentManyRelationFilter {
+  every: PostContentWhereInput
+  some: PostContentWhereInput
+  none: PostContentWhereInput
+}
+
+input PostCategoryOrderByInput {
   id: OrderDirection
   name: OrderDirection
   icon: OrderDirection
   subtitle: OrderDirection
+  status: OrderDirection
 }
 
-input PostUpdateInput {
+input PostCategoryUpdateInput {
   name: String
   icon: String
   subtitle: String
+  status: String
+  content: PostContentRelateToManyForUpdateInput
 }
 
-input PostUpdateArgs {
-  where: PostWhereUniqueInput!
-  data: PostUpdateInput!
+input PostContentRelateToManyForUpdateInput {
+  disconnect: [PostContentWhereUniqueInput!]
+  set: [PostContentWhereUniqueInput!]
+  create: [PostContentCreateInput!]
+  connect: [PostContentWhereUniqueInput!]
 }
 
-input PostCreateInput {
+input PostCategoryUpdateArgs {
+  where: PostCategoryWhereUniqueInput!
+  data: PostCategoryUpdateInput!
+}
+
+input PostCategoryCreateInput {
   name: String
   icon: String
   subtitle: String
+  status: String
+  content: PostContentRelateToManyForCreateInput
+}
+
+input PostContentRelateToManyForCreateInput {
+  create: [PostContentCreateInput!]
+  connect: [PostContentWhereUniqueInput!]
+}
+
+type PostContent {
+  id: ID!
+  name: String
+  status: String
+  content: PostContent_content_Document
+  category: PostCategory
+}
+
+type PostContent_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input PostContentWhereUniqueInput {
+  id: ID
+}
+
+input PostContentWhereInput {
+  AND: [PostContentWhereInput!]
+  OR: [PostContentWhereInput!]
+  NOT: [PostContentWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  status: StringNullableFilter
+  category: PostCategoryWhereInput
+}
+
+input PostContentOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  status: OrderDirection
+}
+
+input PostContentUpdateInput {
+  name: String
+  status: String
+  content: JSON
+  category: PostCategoryRelateToOneForUpdateInput
+}
+
+input PostCategoryRelateToOneForUpdateInput {
+  create: PostCategoryCreateInput
+  connect: PostCategoryWhereUniqueInput
+  disconnect: Boolean
+}
+
+input PostContentUpdateArgs {
+  where: PostContentWhereUniqueInput!
+  data: PostContentUpdateInput!
+}
+
+input PostContentCreateInput {
+  name: String
+  status: String
+  content: JSON
+  category: PostCategoryRelateToOneForCreateInput
+}
+
+input PostCategoryRelateToOneForCreateInput {
+  create: PostCategoryCreateInput
+  connect: PostCategoryWhereUniqueInput
 }
 
 """
@@ -637,12 +732,24 @@ type Mutation {
   updateClasses(data: [ClassUpdateArgs!]!): [Class]
   deleteClass(where: ClassWhereUniqueInput!): Class
   deleteClasses(where: [ClassWhereUniqueInput!]!): [Class]
-  createPost(data: PostCreateInput!): Post
-  createPosts(data: [PostCreateInput!]!): [Post]
-  updatePost(where: PostWhereUniqueInput!, data: PostUpdateInput!): Post
-  updatePosts(data: [PostUpdateArgs!]!): [Post]
-  deletePost(where: PostWhereUniqueInput!): Post
-  deletePosts(where: [PostWhereUniqueInput!]!): [Post]
+  createPostCategory(data: PostCategoryCreateInput!): PostCategory
+  createPostCategories(data: [PostCategoryCreateInput!]!): [PostCategory]
+  updatePostCategory(
+    where: PostCategoryWhereUniqueInput!
+    data: PostCategoryUpdateInput!
+  ): PostCategory
+  updatePostCategories(data: [PostCategoryUpdateArgs!]!): [PostCategory]
+  deletePostCategory(where: PostCategoryWhereUniqueInput!): PostCategory
+  deletePostCategories(where: [PostCategoryWhereUniqueInput!]!): [PostCategory]
+  createPostContent(data: PostContentCreateInput!): PostContent
+  createPostContents(data: [PostContentCreateInput!]!): [PostContent]
+  updatePostContent(
+    where: PostContentWhereUniqueInput!
+    data: PostContentUpdateInput!
+  ): PostContent
+  updatePostContents(data: [PostContentUpdateArgs!]!): [PostContent]
+  deletePostContent(where: PostContentWhereUniqueInput!): PostContent
+  deletePostContents(where: [PostContentWhereUniqueInput!]!): [PostContent]
   endSession: Boolean!
   authenticateUserWithPassword(
     email: String!
@@ -704,14 +811,22 @@ type Query {
   ): [Class!]
   class(where: ClassWhereUniqueInput!): Class
   classesCount(where: ClassWhereInput! = {}): Int
-  posts(
-    where: PostWhereInput! = {}
-    orderBy: [PostOrderByInput!]! = []
+  postCategories(
+    where: PostCategoryWhereInput! = {}
+    orderBy: [PostCategoryOrderByInput!]! = []
     take: Int
     skip: Int! = 0
-  ): [Post!]
-  post(where: PostWhereUniqueInput!): Post
-  postsCount(where: PostWhereInput! = {}): Int
+  ): [PostCategory!]
+  postCategory(where: PostCategoryWhereUniqueInput!): PostCategory
+  postCategoriesCount(where: PostCategoryWhereInput! = {}): Int
+  postContents(
+    where: PostContentWhereInput! = {}
+    orderBy: [PostContentOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [PostContent!]
+  postContent(where: PostContentWhereUniqueInput!): PostContent
+  postContentsCount(where: PostContentWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }

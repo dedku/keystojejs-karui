@@ -5,7 +5,7 @@ import {
     select,
   } from '@keystone-6/core/fields';
 import { document } from '@keystone-6/fields-document';
-import { isAdmin } from './newAssets';
+import { isAdmin, showIfAdmin } from './newAssets';
 
 export const Build = list({
     access:{
@@ -34,7 +34,7 @@ export const Build = list({
         }
         }),
       slug: text({
-        ui: { createView: { fieldMode: 'hidden' }, itemView: { fieldMode: 'hidden' } },
+        ui: { createView: { fieldMode: showIfAdmin }, itemView: { fieldMode: showIfAdmin } },
         access:{
           update: isAdmin,
           read: isAdmin

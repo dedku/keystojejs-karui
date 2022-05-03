@@ -6,7 +6,7 @@ import {
     image,
   } from '@keystone-6/core/fields';
 import { document } from '@keystone-6/fields-document';
-import { isAdmin, cloundImage } from './newAssets'
+import { isAdmin, cloundImage, showIfAdmin } from './newAssets'
 
 export const Blog = list({
     access:{
@@ -19,7 +19,7 @@ export const Blog = list({
       cardAvatar: cloundImage,
       coverPhoto: cloundImage,
       slug: text({
-        ui: { createView: { fieldMode: 'hidden' }, itemView: { fieldMode: 'hidden' } },
+        ui: { createView: { fieldMode: showIfAdmin }, itemView: { fieldMode: showIfAdmin } },
         access:{
           update: isAdmin,
           read: isAdmin

@@ -1,7 +1,8 @@
 import {User} from './schema/users'
 import {Blog} from './schema/blogs'
-import {Tag, Class, Post} from './schema/otherContent'
+import {Tag, Class} from './schema/otherContent'
 import {Build} from './schema/builds'
+import { PostCategory, PostContent } from './schema/posts'
 
 import { Lists } from '.keystone/types';
 
@@ -11,5 +12,6 @@ export const lists: Lists = {
   User,
   Tag,
   Class,
-  Post,
+  PostCategory,
+  PostContent
 };

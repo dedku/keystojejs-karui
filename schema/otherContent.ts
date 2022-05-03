@@ -2,7 +2,6 @@ import { list } from '@keystone-6/core';
 import {
     text,
     relationship,
-    image,
   } from '@keystone-6/core/fields';
 import {cloundImage} from './newAssets'
 import { isAdmin } from './newAssets';
@@ -70,13 +69,5 @@ export const Tag = list({
           itemView: { fieldMode: 'hidden' }
         }
       }),
-    },
-  })
-
-  export const Post = list({
-    fields: {
-      name: text(),
-      icon: text(),
-      subtitle: text(),
     },
   })

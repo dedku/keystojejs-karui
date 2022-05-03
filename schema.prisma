@@ -70,9 +70,22 @@ model Class {
   builds Build[] @relation("Build_class")
 }
 
-model Post {
-  id       String @id @default(cuid())
-  name     String @default("")
-  icon     String @default("")
-  subtitle String @default("")
+model PostCategory {
+  id       String        @id @default(cuid())
+  name     String        @default("")
+  icon     String        @default("")
+  subtitle String        @default("")
+  status   String?       @default("draft")
+  content  PostContent[] @relation("PostContent_category")
+}
+
+model PostContent {
+  id         String        @id @default(cuid())
+  name       String        @default("")
+  status     String?       @default("draft")
+  content    Json          @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  category   PostCategory? @relation("PostContent_category", fields: [categoryId], references: [id])
+  categoryId String?       @map("category")
+
+  @@index([categoryId])
 }
