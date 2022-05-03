@@ -9,12 +9,13 @@ export const componentBlocks = {
       return (
         <div
           style={{
-            borderLeft: '3px solid #CBD5E0',
-            paddingLeft: 16,
+            backgroundColor: 'rgb(243, 245, 246)',
+            padding: '1em',
+            borderRadius: 16
           }}
         >
           <div style={{ fontStyle: 'italic', color: '#4A5568' }}>{content}</div>
-          <div style={{ fontWeight: 'bold', color: '#718096' }}>
+          <div style={{ fontWeight: 'bold', color: '#718096', paddingLeft: '1em' }}>
             <NotEditable>— </NotEditable>
             {attribution}
           </div>

@@ -6,6 +6,7 @@ import {
   } from '@keystone-6/core/fields';
 import { document } from '@keystone-6/fields-document';
 import { isAdmin, showIfAdmin } from './newAssets';
+import { componentBlocks } from '../components/component-blocks';
 
 export const Build = list({
     access:{
@@ -64,6 +65,10 @@ export const Build = list({
         ],
         links: true,
         dividers: true,
+        ui: {
+          views: require.resolve('../components/component-blocks')
+        },
+        componentBlocks,
       }),
       author: relationship({
         ref: 'User.builds',
