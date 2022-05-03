@@ -30,19 +30,6 @@ export const Tag = list({
           createView: { fieldMode: 'hidden' },
         }
       }),
-    },
-    hooks: {
-      // Change tah to be lower case
-      resolveInput: ({ resolvedData }) => {
-        const { name } = resolvedData;
-        if (name) {
-          return {
-            ...resolvedData,
-            title: name.toLowerCase()
-          }
-        }
-        return resolvedData;
-      }
     }
   })
 
