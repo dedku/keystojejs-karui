@@ -22,7 +22,6 @@ export const Blog = list({
         ui: { createView: { fieldMode: showIfAdmin }, itemView: { fieldMode: showIfAdmin } },
         access:{
           update: isAdmin,
-          read: isAdmin
         }
       }),
       status: select({

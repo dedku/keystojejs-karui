@@ -30,7 +30,6 @@ export const User =  list({
         ui: { createView: { fieldMode: showIfAdmin }, itemView: { fieldMode: showIfAdmin } },
         access:{
           update: isAdmin,
-          read: isAdmin
         }
       }),
       image: cloundImage,
