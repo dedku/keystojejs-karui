@@ -27,6 +27,12 @@ export default withAuth(
       provider: 'postgresql',
       url: process.env.POSTGRES_URL!,
     },
+    server:{
+      cors:{
+        origin: process.env.FRONTEND_URL,
+        credentials: true,
+      }
+    },
     lists,
     session,
   })
