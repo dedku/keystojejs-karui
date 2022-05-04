@@ -19,7 +19,7 @@ export const Blog = list({
       cardAvatar: cloundImage,
       coverPhoto: cloundImage,
       slug: text({
-        ui: { createView: { fieldMode: showIfAdmin }, itemView: { fieldMode: showIfAdmin } },
+        ui: { createView: { fieldMode: showIfAdmin }},
         access:{
           update: isAdmin,
         }

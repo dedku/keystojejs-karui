@@ -35,10 +35,9 @@ export const Build = list({
         }
         }),
       slug: text({
-        ui: { createView: { fieldMode: showIfAdmin }, itemView: { fieldMode: showIfAdmin } },
+        ui: { createView: { fieldMode: showIfAdmin } },
         access:{
           update: isAdmin,
-          read: isAdmin
         }
       }),
       skill: text({ validation: { isRequired: true } }),
