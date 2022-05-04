@@ -35,7 +35,6 @@ export const Build = list({
         }
         }),
       slug: text({
-        ui: { createView: { fieldMode: showIfAdmin } },
         access:{
           update: isAdmin,
         }
