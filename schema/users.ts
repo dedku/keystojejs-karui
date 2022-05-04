@@ -27,7 +27,6 @@ export const User =  list({
         isFilterable: true,
       }),
       slug: text({
-        ui: { createView: { fieldMode: showIfAdmin } },
         access:{
           update: isAdmin,
         }
