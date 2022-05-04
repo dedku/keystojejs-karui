@@ -8,7 +8,7 @@ import { isAdmin } from './newAssets';
 
 export const Tag = list({
     ui: {
-      isHidden: true,
+      isHidden: !isAdmin,
     },
     fields: {
       name: text(),
