@@ -29,14 +29,14 @@ export default withAuth(
     },
     server:{
       cors:{
-        origin: `${process.env.FRONTEND_URL}`,
+        origin: process.env.FRONTEND_URL,
         credentials: true,
       }
     },
     graphql: {
       path: '/api/graphql',
       cors: {
-        origin: `${process.env.FRONTEND_URL}`,
+        origin: process.env.FRONTEND_URL,
         credentials: true,
       },
     },
