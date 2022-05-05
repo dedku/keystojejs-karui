@@ -39,6 +39,10 @@ export const Build = list({
           update: isAdmin,
         }
       }),
+      views: text({
+        access:{
+          update: isAdmin,
+      }}),
       skill: text({ validation: { isRequired: true } }),
       patch: text({ validation: { isRequired: true } }),
       status: select({
