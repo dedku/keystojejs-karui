@@ -37,7 +37,8 @@ export const Build = list({
       slug: text({
         access:{
           update: isAdmin,
-        }
+        },
+        isIndexed: 'unique',
       }),
       views: text({
         defaultValue:'1',

@@ -32,7 +32,7 @@ model Build {
   title    String  @default("")
   class    Class?  @relation("Build_class", fields: [classId], references: [id])
   classId  String? @map("class")
-  slug     String  @default("")
+  slug     String  @unique @default("")
   views    String  @default("1")
   skill    String  @default("")
   patch    String  @default("")

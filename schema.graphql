@@ -266,6 +266,7 @@ type Build_content_Document {
 
 input BuildWhereUniqueInput {
   id: ID
+  slug: String
 }
 
 input BuildWhereInput {
