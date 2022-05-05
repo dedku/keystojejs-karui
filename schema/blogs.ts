@@ -23,6 +23,11 @@ export const Blog = list({
           update: isAdmin,
         }
       }),
+      views: text({
+        defaultValue:'1',
+        access:{
+          update: isAdmin,
+      }}),
       status: select({
         options: [
           { label: 'Published', value: 'published' },

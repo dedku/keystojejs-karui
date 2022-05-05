@@ -40,6 +40,7 @@ export const Build = list({
         }
       }),
       views: text({
+        defaultValue:'1',
         access:{
           update: isAdmin,
       }}),
