@@ -7,6 +7,7 @@ type Blog {
   cardAvatar: CloudinaryImage_File
   coverPhoto: CloudinaryImage_File
   slug: String
+  views: String
   status: String
   content: Blog_content_Document
   author: User
@@ -83,6 +84,7 @@ input BlogWhereInput {
   id: IDFilter
   title: StringFilter
   slug: StringFilter
+  views: StringFilter
   status: StringNullableFilter
   author: UserWhereInput
   tags: TagManyRelationFilter
@@ -172,6 +174,7 @@ input BlogOrderByInput {
   id: OrderDirection
   title: OrderDirection
   slug: OrderDirection
+  views: OrderDirection
   status: OrderDirection
 }
 
@@ -185,6 +188,7 @@ input BlogUpdateInput {
   cardAvatar: Upload
   coverPhoto: Upload
   slug: String
+  views: String
   status: String
   content: JSON
   author: UserRelateToOneForUpdateInput
@@ -219,6 +223,7 @@ input BlogCreateInput {
   cardAvatar: Upload
   coverPhoto: Upload
   slug: String
+  views: String
   status: String
   content: JSON
   author: UserRelateToOneForCreateInput
@@ -240,6 +245,7 @@ type Build {
   title: String
   class: Class
   slug: String
+  views: String
   skill: String
   patch: String
   status: String
@@ -270,6 +276,7 @@ input BuildWhereInput {
   title: StringFilter
   class: ClassWhereInput
   slug: StringFilter
+  views: StringFilter
   skill: StringFilter
   patch: StringFilter
   status: StringNullableFilter
@@ -281,6 +288,7 @@ input BuildOrderByInput {
   id: OrderDirection
   title: OrderDirection
   slug: OrderDirection
+  views: OrderDirection
   skill: OrderDirection
   patch: OrderDirection
   status: OrderDirection
@@ -290,6 +298,7 @@ input BuildUpdateInput {
   title: String
   class: ClassRelateToOneForUpdateInput
   slug: String
+  views: String
   skill: String
   patch: String
   status: String
@@ -313,6 +322,7 @@ input BuildCreateInput {
   title: String
   class: ClassRelateToOneForCreateInput
   slug: String
+  views: String
   skill: String
   patch: String
   status: String
