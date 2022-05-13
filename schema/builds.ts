@@ -5,7 +5,7 @@ import {
     select,
   } from '@keystone-6/core/fields';
 import { document } from '@keystone-6/fields-document';
-import { isAdmin, showIfAdmin } from './newAssets';
+import { isAdmin, renderDocument } from './newAssets';
 import { componentBlocks } from '../components/component-blocks';
 
 export const Build = list({
@@ -40,6 +40,10 @@ export const Build = list({
         },
         isIndexed: 'unique',
       }),
+      renderedDoc: text({
+        access:{
+          update: isAdmin,
+      }}),
       views: text({
         defaultValue:'1',
         access:{
@@ -101,15 +105,24 @@ export const Build = list({
     },
     hooks:{
       // Create slug
-      resolveInput: ({ resolvedData }) => {
-        const { title } = resolvedData;
-        if (title) {
-          return {
-            ...resolvedData,
-            slug: title?.trim()?.toLowerCase()?.replace(/[^\w ]+/g, '')?.replace(/ +/g, '-') ?? ''
+      // Rendered doc value add to item
+      resolveInput: async ({ resolvedData, operation, context, item }) => {
+        const { title } = resolvedData
+        if(operation == 'create' || operation == 'update' ) {
+          const documentContent: any = await context.query.Blog.findOne({
+            where:{ id: item!.id},
+            query: 'content { document }'
+          })
+          const renderedDocVal = renderDocument(documentContent.content);
+          if (renderedDocVal.length > 0) {
+            return {
+              ...resolvedData,
+              renderedDoc: renderedDocVal,
+              slug: title?.trim()?.toLowerCase()?.replace(/[^\w ]+/g, '')?.replace(/ +/g, '-') ?? ''
+            }
           }
+          return resolvedData;
         }
-        return resolvedData;
       }
     }
   })

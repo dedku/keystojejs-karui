@@ -58,19 +58,6 @@ export const Blog = list({
           views: require.resolve('../components/component-blocks')
         },
         componentBlocks,
-        hooks:{
-          afterOperation: async ({operation, item, context}) => {
-            if(operation == 'create' || operation == 'update' ) {
-              console.log('work2')
-              const documentContent: any = await context.query.Blog.findOne({
-                where:{ id: item.id},
-                query: 'content { document }'
-              })
-              const renderedDoc = renderDocument(documentContent.content)
-              console.log(renderedDoc)
-            }
-          }
-        }
       }),
       author: relationship({
         ref: 'User.blogs',
@@ -96,19 +83,27 @@ export const Blog = list({
     },
     ui: {
       labelField: 'title',
-      description: 'wtf is this, where is that?'
     },
     hooks:{
       // Create slug
-      resolveInput: ({ resolvedData }) => {
-        const { title } = resolvedData;
-        if (title) {
-          return {
-            ...resolvedData,
-            slug: title?.trim()?.toLowerCase()?.replace(/[^\w ]+/g, '')?.replace(/ +/g, '-') ?? ''
+      // Rendered doc value add to item
+      resolveInput: async ({ resolvedData, operation, context, item }) => {
+        const { title } = resolvedData
+        if(operation == 'create' || operation == 'update' ) {
+          const documentContent: any = await context.query.Blog.findOne({
+            where:{ id: item!.id},
+            query: 'content { document }'
+          })
+          const renderedDocVal = renderDocument(documentContent.content);
+          if (renderedDocVal.length > 0) {
+            return {
+              ...resolvedData,
+              renderedDoc: renderedDocVal,
+              slug: title?.trim()?.toLowerCase()?.replace(/[^\w ]+/g, '')?.replace(/ +/g, '-') ?? ''
+            }
           }
+          return resolvedData;
         }
-        return resolvedData;
       }
     }
   })

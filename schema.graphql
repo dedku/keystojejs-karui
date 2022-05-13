@@ -250,6 +250,7 @@ type Build {
   title: String
   class: Class
   slug: String
+  renderedDoc: String
   views: String
   skill: String
   patch: String
@@ -282,6 +283,7 @@ input BuildWhereInput {
   title: StringFilter
   class: ClassWhereInput
   slug: StringFilter
+  renderedDoc: StringFilter
   views: StringFilter
   skill: StringFilter
   patch: StringFilter
@@ -294,6 +296,7 @@ input BuildOrderByInput {
   id: OrderDirection
   title: OrderDirection
   slug: OrderDirection
+  renderedDoc: OrderDirection
   views: OrderDirection
   skill: OrderDirection
   patch: OrderDirection
@@ -304,6 +307,7 @@ input BuildUpdateInput {
   title: String
   class: ClassRelateToOneForUpdateInput
   slug: String
+  renderedDoc: String
   views: String
   skill: String
   patch: String
@@ -328,6 +332,7 @@ input BuildCreateInput {
   title: String
   class: ClassRelateToOneForCreateInput
   slug: String
+  renderedDoc: String
   views: String
   skill: String
   patch: String
