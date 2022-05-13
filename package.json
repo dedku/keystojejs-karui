@@ -20,7 +20,7 @@
     "typescript": "^4.3.4"
   },
   "engines": {
-    "node": "^14.15 || ^16.14"
+    "node": "^14.15 || ^16.15"
   },
   "prettier": {
     "singleQuote": true,
