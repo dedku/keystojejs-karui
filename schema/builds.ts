@@ -109,7 +109,7 @@ export const Build = list({
       resolveInput: async ({ resolvedData, operation, context, item }) => {
         const { title } = resolvedData
         if(operation == 'create' || operation == 'update' ) {
-          const documentContent: any = await context.query.Blog.findOne({
+          const documentContent: any = await context.query.Build.findOne({
             where:{ id: item!.id},
             query: 'content { document }'
           })
