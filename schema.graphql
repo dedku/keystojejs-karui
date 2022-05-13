@@ -7,6 +7,7 @@ type Blog {
   cardAvatar: CloudinaryImage_File
   coverPhoto: CloudinaryImage_File
   slug: String
+  testLable: String
   views: String
   status: String
   content: Blog_content_Document
@@ -84,6 +85,7 @@ input BlogWhereInput {
   id: IDFilter
   title: StringFilter
   slug: StringFilter
+  testLable: StringFilter
   views: StringFilter
   status: StringNullableFilter
   author: UserWhereInput
@@ -174,6 +176,7 @@ input BlogOrderByInput {
   id: OrderDirection
   title: OrderDirection
   slug: OrderDirection
+  testLable: OrderDirection
   views: OrderDirection
   status: OrderDirection
 }
@@ -188,6 +191,7 @@ input BlogUpdateInput {
   cardAvatar: Upload
   coverPhoto: Upload
   slug: String
+  testLable: String
   views: String
   status: String
   content: JSON
@@ -223,6 +227,7 @@ input BlogCreateInput {
   cardAvatar: Upload
   coverPhoto: Upload
   slug: String
+  testLable: String
   views: String
   status: String
   content: JSON

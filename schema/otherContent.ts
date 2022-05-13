@@ -3,7 +3,7 @@ import {
     text,
     relationship,
   } from '@keystone-6/core/fields';
-import {cloundImage} from './newAssets'
+import { cloundImage } from './newAssets'
 import { isAdmin } from './newAssets';
 
 export const Tag = list({

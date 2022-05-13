@@ -5,7 +5,7 @@ import {
     select,
   } from '@keystone-6/core/fields';
 import { document } from '@keystone-6/fields-document';
-import { isAdmin, cloundImage, showIfAdmin } from './newAssets'
+import { isAdmin, cloundImage } from './newAssets'
 import { componentBlocks } from '../components/component-blocks';
 
 export const Blog = list({
@@ -54,6 +54,16 @@ export const Blog = list({
           views: require.resolve('../components/component-blocks')
         },
         componentBlocks,
+        hooks:{
+          afterOperation: async ({operation, item, context}) => {
+            if(operation == 'create' || operation == 'update' ) {
+              const document = await context.query.Blog.findOne({
+                where:{title: item.title}
+              })
+              console.log(document)
+            }
+          }
+        }
       }),
       author: relationship({
         ref: 'User.blogs',
