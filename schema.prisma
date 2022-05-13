@@ -12,17 +12,18 @@ generator client {
 }
 
 model Blog {
-  id         String  @id @default(cuid())
-  title      String  @default("")
-  cardAvatar Json?
-  coverPhoto Json?
-  slug       String  @default("")
-  views      String  @default("1")
-  status     String? @default("draft")
-  content    Json    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  author     User?   @relation("Blog_author", fields: [authorId], references: [id])
-  authorId   String? @map("author")
-  tags       Tag[]   @relation("Blog_tags")
+  id          String  @id @default(cuid())
+  title       String  @default("")
+  cardAvatar  Json?
+  coverPhoto  Json?
+  slug        String  @default("")
+  views       String  @default("1")
+  renderedDoc String  @default("")
+  status      String? @default("draft")
+  content     Json    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  author      User?   @relation("Blog_author", fields: [authorId], references: [id])
+  authorId    String? @map("author")
+  tags        Tag[]   @relation("Blog_tags")
 
   @@index([authorId])
 }

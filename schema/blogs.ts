@@ -5,7 +5,7 @@ import {
     select,
   } from '@keystone-6/core/fields';
 import { document } from '@keystone-6/fields-document';
-import { isAdmin, cloundImage } from './newAssets'
+import { isAdmin, cloundImage, renderDocument } from './newAssets'
 import { componentBlocks } from '../components/component-blocks';
 
 export const Blog = list({
@@ -25,6 +25,10 @@ export const Blog = list({
       }),
       views: text({
         defaultValue:'1',
+        access:{
+          update: isAdmin,
+      }}),
+      renderedDoc: text({
         access:{
           update: isAdmin,
       }}),
@@ -57,10 +61,13 @@ export const Blog = list({
         hooks:{
           afterOperation: async ({operation, item, context}) => {
             if(operation == 'create' || operation == 'update' ) {
-              const document = await context.query.Blog.findOne({
-                where:{title: item.title}
+              console.log('work2')
+              const documentContent: any = await context.query.Blog.findOne({
+                where:{ id: item.id},
+                query: 'content { document }'
               })
-              console.log(document)
+              const renderedDoc = renderDocument(documentContent.content)
+              console.log(renderedDoc)
             }
           }
         }

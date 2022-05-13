@@ -8,6 +8,7 @@ type Blog {
   coverPhoto: CloudinaryImage_File
   slug: String
   views: String
+  renderedDoc: String
   status: String
   content: Blog_content_Document
   author: User
@@ -85,6 +86,7 @@ input BlogWhereInput {
   title: StringFilter
   slug: StringFilter
   views: StringFilter
+  renderedDoc: StringFilter
   status: StringNullableFilter
   author: UserWhereInput
   tags: TagManyRelationFilter
@@ -175,6 +177,7 @@ input BlogOrderByInput {
   title: OrderDirection
   slug: OrderDirection
   views: OrderDirection
+  renderedDoc: OrderDirection
   status: OrderDirection
 }
 
@@ -189,6 +192,7 @@ input BlogUpdateInput {
   coverPhoto: Upload
   slug: String
   views: String
+  renderedDoc: String
   status: String
   content: JSON
   author: UserRelateToOneForUpdateInput
@@ -224,6 +228,7 @@ input BlogCreateInput {
   coverPhoto: Upload
   slug: String
   views: String
+  renderedDoc: String
   status: String
   content: JSON
   author: UserRelateToOneForCreateInput

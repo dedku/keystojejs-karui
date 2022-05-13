@@ -1,4 +1,8 @@
+import React from 'react'
+import ReactDOMServer from 'react-dom/server'
 import { cloudinaryImage } from '@keystone-6/cloudinary';
+import { DocumentRenderer } from '@keystone-6/document-renderer'
+
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -28,3 +32,8 @@ export const cloundImage = cloudinaryImage({
     folder: process.env.CLOUDINARY_API_FOLDER!
   },
 })
+
+// render Document conetent to sting
+export function renderDocument({ document }:{ document:any }) {
+  return ReactDOMServer.renderToStaticMarkup(<DocumentRenderer document={document} />)
+}
