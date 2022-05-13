@@ -17,7 +17,6 @@ model Blog {
   cardAvatar Json?
   coverPhoto Json?
   slug       String  @default("")
-  testLable  String  @default("")
   views      String  @default("1")
   status     String? @default("draft")
   content    Json    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
