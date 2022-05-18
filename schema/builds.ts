@@ -6,7 +6,7 @@ import {
   } from '@keystone-6/core/fields';
 import { document } from '@keystone-6/fields-document';
 import { isAdmin, renderDocument } from './newAssets';
-import { componentBlocks } from '../components/component-blocks';
+import { componentBlocks } from '../components/componentBlocks';
 
 export const Build = list({
     access:{
@@ -61,6 +61,7 @@ export const Build = list({
         ui: {
           displayMode: 'segmented-control',
         },
+
       }),
       content: document({
         formatting: true,
@@ -74,7 +75,7 @@ export const Build = list({
         links: true,
         dividers: true,
         ui: {
-          views: require.resolve('../components/component-blocks')
+          views: require.resolve('../components/componentBlocks')
         },
         componentBlocks,
       }),
@@ -104,25 +105,30 @@ export const Build = list({
       labelField: 'title',
     },
     hooks:{
-      // Create slug
-      // Rendered doc value add to item
       resolveInput: async ({ resolvedData, operation, context, item }) => {
-        const { title } = resolvedData
-        if(operation == 'create' || operation == 'update' ) {
+          // Creare||update slug
+          const { title } = resolvedData
+          if (title) {
+            return {
+              ...resolvedData,
+              slug: title?.trim()?.toLowerCase()?.replace(/[^\w ]+/g, '')?.replace(/ +/g, '-') ?? ''
+            }
+          }
+          // Get documentQuery
           const documentContent: any = await context.query.Build.findOne({
             where:{ id: item!.id},
             query: 'content { document }'
           })
+          // Render to markup document field
           const renderedDocVal = renderDocument(documentContent.content);
-          if (renderedDocVal.length > 0) {
+          console.log(renderedDocVal)
+          if(operation == 'update' ) {
             return {
               ...resolvedData,
-              renderedDoc: renderedDocVal,
-              slug: title?.trim()?.toLowerCase()?.replace(/[^\w ]+/g, '')?.replace(/ +/g, '-') ?? ''
+              renderedDoc: renderedDocVal
             }
           }
-          return resolvedData;
-        }
+        return resolvedData
       }
     }
   })

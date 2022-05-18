@@ -6,7 +6,7 @@ import {
   } from '@keystone-6/core/fields';
 import { document } from '@keystone-6/fields-document';
 import { isAdmin, cloundImage, renderDocument } from './newAssets'
-import { componentBlocks } from '../components/component-blocks';
+import { componentBlocks } from '../components/componentBlocks';
 
 export const Blog = list({
     access:{
@@ -55,7 +55,7 @@ export const Blog = list({
         links: true,
         dividers: true,
         ui: {
-          views: require.resolve('../components/component-blocks')
+          views: require.resolve('../components/componentBlocks')
         },
         componentBlocks,
       }),
@@ -85,25 +85,31 @@ export const Blog = list({
       labelField: 'title',
     },
     hooks:{
-      // Create slug
-      // Rendered doc value add to item
-      resolveInput: async ({ resolvedData, operation, context, item }) => {
-        const { title } = resolvedData
-        if(operation == 'create' || operation == 'update' ) {
-          const documentContent: any = await context.query.Blog.findOne({
-            where:{ id: item!.id},
-            query: 'content { document }'
-          })
-          const renderedDocVal = renderDocument(documentContent.content);
-          if (renderedDocVal.length > 0) {
+        resolveInput: async ({ resolvedData, operation, context, item }) => {
+          // Creare||update slug
+          const { title } = resolvedData
+          if (title) {
             return {
               ...resolvedData,
-              renderedDoc: renderedDocVal,
               slug: title?.trim()?.toLowerCase()?.replace(/[^\w ]+/g, '')?.replace(/ +/g, '-') ?? ''
             }
           }
-          return resolvedData;
+          // Get documentQuery
+          const documentContent: any = await context.query.Build.findOne({
+            where:{ id: item!.id},
+            query: 'content { document }'
+          })
+          // Render to markup document field
+          const renderedDocVal = renderDocument(documentContent.content);
+          if(operation == 'update' ) {
+          if (documentContent.content) {
+            return {
+              ...resolvedData,
+              renderedDoc: renderedDocVal
+            }
+          }
         }
+        return resolvedData
       }
     }
   })

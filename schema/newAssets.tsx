@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { cloudinaryImage } from '@keystone-6/cloudinary';
 import { DocumentRenderer } from '@keystone-6/document-renderer'
+import { componentBlockRenderers } from '../components/renderers';
 
 import dotenv from 'dotenv'
 dotenv.config()
@@ -35,5 +36,5 @@ export const cloundImage = cloudinaryImage({
 
 // render Document conetent to sting
 export function renderDocument({ document }:{ document:any }) {
-  return ReactDOMServer.renderToStaticMarkup(<DocumentRenderer document={document} />)
+  return ReactDOMServer.renderToString(<DocumentRenderer document={document} componentBlocks={componentBlockRenderers}/>)
 }
