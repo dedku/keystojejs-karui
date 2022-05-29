@@ -56,7 +56,6 @@ export const componentBlocks = {
 
       return (
         <div
-          className={intentConfig.class}
           css={{
             borderRadius: radii.small,
             display: 'flex',

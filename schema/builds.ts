@@ -121,7 +121,6 @@ export const Build = list({
           })
           // Render to markup document field
           const renderedDocVal = renderDocument(documentContent.content);
-          console.log(renderedDocVal)
           if(operation == 'update' ) {
             return {
               ...resolvedData,

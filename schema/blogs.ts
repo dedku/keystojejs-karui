@@ -85,7 +85,7 @@ export const Blog = list({
       labelField: 'title',
     },
     hooks:{
-        resolveInput: async ({ resolvedData, operation, context, item }) => {
+      resolveInput: async ({ resolvedData, operation, context, item }) => {
           // Creare||update slug
           const { title } = resolvedData
           if (title) {
@@ -95,20 +95,18 @@ export const Blog = list({
             }
           }
           // Get documentQuery
-          const documentContent: any = await context.query.Build.findOne({
+          const documentContent: any = await context.query.Blog.findOne({
             where:{ id: item!.id},
             query: 'content { document }'
           })
           // Render to markup document field
           const renderedDocVal = renderDocument(documentContent.content);
           if(operation == 'update' ) {
-          if (documentContent.content) {
             return {
               ...resolvedData,
               renderedDoc: renderedDocVal
             }
           }
-        }
         return resolvedData
       }
     }
