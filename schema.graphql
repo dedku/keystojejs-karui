@@ -355,6 +355,7 @@ type User {
   slug: String
   image: CloudinaryImage_File
   isAdmin: Boolean
+  isOnline: Boolean
   password: PasswordState
   blogs(
     where: BlogWhereInput! = {}
@@ -390,6 +391,7 @@ input UserWhereInput {
   email: StringFilter
   slug: StringFilter
   isAdmin: BooleanFilter
+  isOnline: BooleanFilter
   blogs: BlogManyRelationFilter
   builds: BuildManyRelationFilter
 }
@@ -417,6 +419,7 @@ input UserOrderByInput {
   email: OrderDirection
   slug: OrderDirection
   isAdmin: OrderDirection
+  isOnline: OrderDirection
 }
 
 input UserUpdateInput {
@@ -425,6 +428,7 @@ input UserUpdateInput {
   slug: String
   image: Upload
   isAdmin: Boolean
+  isOnline: Boolean
   password: String
   blogs: BlogRelateToManyForUpdateInput
   builds: BuildRelateToManyForUpdateInput
@@ -455,6 +459,7 @@ input UserCreateInput {
   slug: String
   image: Upload
   isAdmin: Boolean
+  isOnline: Boolean
   password: String
   blogs: BlogRelateToManyForCreateInput
   builds: BuildRelateToManyForCreateInput
