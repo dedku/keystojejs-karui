@@ -2,19 +2,18 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { cloudinaryImage } from '@keystone-6/cloudinary';
 import { DocumentRenderer } from '@keystone-6/document-renderer'
-import { componentBlockRenderers } from '../components/renderers';
 
 import dotenv from 'dotenv'
 dotenv.config()
 
 // Check if user is an admin
-type SessionContext = { data: { id: string; isAdmin: boolean; name: string }}
-export const isAdmin = ({session}:{session:SessionContext}) => session?.data.isAdmin
+type SessionContext = { data: { id: string; isAdmin: boolean; name: string } }
+export const isAdmin = ({ session }: { session: SessionContext }) => session?.data.isAdmin
 
 // Show ony user profile to exact session user
 export const filterUser = ({ session }: { session: SessionContext }) => {
   if (session?.data.isAdmin) return true;
-  return { name: { equals: session?.data.name} };
+  return { name: { equals: session?.data.name } };
 }
 
 
@@ -35,6 +34,6 @@ export const cloundImage = cloudinaryImage({
 })
 
 // render Document conetent to sting
-export function renderDocument({ document }:{ document:any }) {
-  return ReactDOMServer.renderToString(<DocumentRenderer document={document} componentBlocks={componentBlockRenderers}/>)
+export function renderDocument({ document }: { document: any }) {
+  return ReactDOMServer.renderToString(<DocumentRenderer document={document} />)
 }
