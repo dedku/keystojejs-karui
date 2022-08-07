@@ -17,7 +17,7 @@ model Blog {
   title       String  @default("")
   cardAvatar  Json?
   coverPhoto  Json?
-  slug        String  @default("")
+  slug        String  @unique @default("")
   views       String  @default("1")
   renderedDoc String  @default("")
   status      String? @default("draft")

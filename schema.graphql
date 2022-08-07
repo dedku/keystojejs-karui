@@ -76,6 +76,7 @@ type Blog_content_Document {
 
 input BlogWhereUniqueInput {
   id: ID
+  slug: String
 }
 
 input BlogWhereInput {
