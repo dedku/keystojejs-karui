@@ -7,6 +7,7 @@ import {
 import { document } from '@keystone-6/fields-document';
 import { isAdmin, cloundImage, renderDocument } from './newAssets'
 
+//test
 export const Blog = list({
   access: {
     operation: {
