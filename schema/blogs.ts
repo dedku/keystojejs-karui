@@ -3,9 +3,10 @@ import {
   text,
   relationship,
   select,
+  file
 } from '@keystone-6/core/fields';
 import { document } from '@keystone-6/fields-document';
-import { isAdmin, cloundImage, renderDocument } from './newAssets'
+import { isAdmin, renderDocument } from './newAssets'
 
 //test
 export const Blog = list({
@@ -16,8 +17,8 @@ export const Blog = list({
   },
   fields: {
     title: text({ validation: { isRequired: true } }),
-    cardAvatar: cloundImage,
-    coverPhoto: cloundImage,
+    cardAvatar: file({ storage: 'my_s3_files' }),
+    coverPhoto: file({ storage: 'my_s3_files' }),
     slug: text({
       access: {
         update: isAdmin,
