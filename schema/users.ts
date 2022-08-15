@@ -4,8 +4,9 @@ import {
   relationship,
   password,
   checkbox,
+  file
 } from '@keystone-6/core/fields';;
-import { filterUser, isAdmin, showIfAdmin, cloundImage } from './newAssets';
+import { filterUser, isAdmin, showIfAdmin } from './newAssets';
 
 export const User = list({
   access: {
@@ -30,7 +31,7 @@ export const User = list({
         update: isAdmin,
       }
     }),
-    image: cloundImage,
+    image: file({ storage: 'my_s3_files' }),
     isAdmin: checkbox({
       defaultValue: false,
       access: {

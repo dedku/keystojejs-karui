@@ -13,18 +13,20 @@ generator client {
 }
 
 model Blog {
-  id          String  @id @default(cuid())
-  title       String  @default("")
-  cardAvatar  Json?
-  coverPhoto  Json?
-  slug        String  @unique @default("")
-  views       String  @default("1")
-  renderedDoc String  @default("")
-  status      String? @default("draft")
-  content     Json    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  author      User?   @relation("Blog_author", fields: [authorId], references: [id])
-  authorId    String? @map("author")
-  tags        Tag[]   @relation("Blog_tags")
+  id                  String  @id @default(cuid())
+  title               String  @default("")
+  cardAvatar_filesize Int?
+  cardAvatar_filename String?
+  coverPhoto_filesize Int?
+  coverPhoto_filename String?
+  slug                String  @unique @default("")
+  views               String  @default("1")
+  renderedDoc         String  @default("")
+  status              String? @default("draft")
+  content             Json    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  author              User?   @relation("Blog_author", fields: [authorId], references: [id])
+  authorId            String? @map("author")
+  tags                Tag[]   @relation("Blog_tags")
 
   @@index([authorId])
 }
@@ -50,16 +52,17 @@ model Build {
 }
 
 model User {
-  id       String  @id @default(cuid())
-  name     String  @default("")
-  email    String  @unique @default("")
-  slug     String  @default("")
-  image    Json?
-  isAdmin  Boolean @default(false)
-  isOnline Boolean @default(false)
-  password String
-  blogs    Blog[]  @relation("Blog_author")
-  builds   Build[] @relation("Build_author")
+  id             String  @id @default(cuid())
+  name           String  @default("")
+  email          String  @unique @default("")
+  slug           String  @default("")
+  image_filesize Int?
+  image_filename String?
+  isAdmin        Boolean @default(false)
+  isOnline       Boolean @default(false)
+  password       String
+  blogs          Blog[]  @relation("Blog_author")
+  builds         Build[] @relation("Build_author")
 }
 
 model Tag {
@@ -71,10 +74,11 @@ model Tag {
 }
 
 model Class {
-  id     String  @id @default(cuid())
-  name   String  @default("")
-  image  Json?
-  builds Build[] @relation("Build_class")
+  id             String  @id @default(cuid())
+  name           String  @default("")
+  image_filesize Int?
+  image_filename String?
+  builds         Build[] @relation("Build_class")
 }
 
 model PostCategory {
