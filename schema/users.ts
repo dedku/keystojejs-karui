@@ -4,7 +4,7 @@ import {
   relationship,
   password,
   checkbox,
-  file
+  image
 } from '@keystone-6/core/fields';;
 import { filterUser, isAdmin, showIfAdmin } from './newAssets';
 
@@ -31,7 +31,22 @@ export const User = list({
         update: isAdmin,
       }
     }),
-    image: file({ storage: 'my_s3_files' }),
+    ytID: text({
+      access: {
+        update: isAdmin,
+      }
+    }),
+    twitchID: text({
+      access: {
+        update: isAdmin,
+      }
+    }),
+    ytVideosID: text({
+      access: {
+        update: isAdmin,
+      }
+    }),
+    image: image({ storage: 'my_s3_files' }),
     isAdmin: checkbox({
       defaultValue: false,
       access: {
