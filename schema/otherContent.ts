@@ -2,7 +2,7 @@ import { list } from '@keystone-6/core';
 import {
   text,
   relationship,
-  file
+  image
 } from '@keystone-6/core/fields';
 import { isAdmin } from './newAssets';
 
@@ -46,7 +46,7 @@ export const Class = list({
   },
   fields: {
     name: text(),
-    image: file({ storage: 'my_s3_files' }),
+    image: image({ storage: 'my_s3_files' }),
     builds: relationship({
       ref: 'Build.class',
       many: true,
