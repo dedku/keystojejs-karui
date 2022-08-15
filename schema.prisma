@@ -64,7 +64,8 @@ model User {
   slug            String  @default("")
   ytID            String  @default("")
   twitchID        String  @default("")
-  ytVideosID      String  @default("")
+  twitchUsername  String  @default("")
+  ytVideosID      Json?
   image_filesize  Int?
   image_extension String?
   image_width     Int?

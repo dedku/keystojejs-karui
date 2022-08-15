@@ -326,7 +326,8 @@ type User {
   slug: String
   ytID: String
   twitchID: String
-  ytVideosID: String
+  twitchUsername: String
+  ytVideosID: JSON
   image: ImageFieldOutput
   isAdmin: Boolean
   isOnline: Boolean
@@ -366,7 +367,7 @@ input UserWhereInput {
   slug: StringFilter
   ytID: StringFilter
   twitchID: StringFilter
-  ytVideosID: StringFilter
+  twitchUsername: StringFilter
   isAdmin: BooleanFilter
   isOnline: BooleanFilter
   blogs: BlogManyRelationFilter
@@ -397,7 +398,7 @@ input UserOrderByInput {
   slug: OrderDirection
   ytID: OrderDirection
   twitchID: OrderDirection
-  ytVideosID: OrderDirection
+  twitchUsername: OrderDirection
   isAdmin: OrderDirection
   isOnline: OrderDirection
 }
@@ -408,7 +409,8 @@ input UserUpdateInput {
   slug: String
   ytID: String
   twitchID: String
-  ytVideosID: String
+  twitchUsername: String
+  ytVideosID: JSON
   image: ImageFieldInput
   isAdmin: Boolean
   isOnline: Boolean
@@ -442,7 +444,8 @@ input UserCreateInput {
   slug: String
   ytID: String
   twitchID: String
-  ytVideosID: String
+  twitchUsername: String
+  ytVideosID: JSON
   image: ImageFieldInput
   isAdmin: Boolean
   isOnline: Boolean

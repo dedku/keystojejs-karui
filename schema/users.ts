@@ -4,7 +4,8 @@ import {
   relationship,
   password,
   checkbox,
-  image
+  image,
+  json
 } from '@keystone-6/core/fields';;
 import { filterUser, isAdmin, showIfAdmin } from './newAssets';
 
@@ -41,7 +42,12 @@ export const User = list({
         update: isAdmin,
       }
     }),
-    ytVideosID: text({
+    twitchUsername: text({
+      access: {
+        update: isAdmin,
+      }
+    }),
+    ytVideosID: json({
       access: {
         update: isAdmin,
       }
