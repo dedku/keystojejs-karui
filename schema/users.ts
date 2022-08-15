@@ -7,7 +7,6 @@ import {
 } from '@keystone-6/core/fields';;
 import { filterUser, isAdmin, showIfAdmin, cloundImage } from './newAssets';
 
-//test
 export const User = list({
   access: {
     operation: {
