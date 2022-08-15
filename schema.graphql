@@ -4,8 +4,8 @@
 type Blog {
   id: ID!
   title: String
-  cardAvatar: FileFieldOutput
-  coverPhoto: FileFieldOutput
+  cardAvatar: ImageFieldOutput
+  coverPhoto: ImageFieldOutput
   slug: String
   views: String
   renderedDoc: String
@@ -21,10 +21,20 @@ type Blog {
   tagsCount(where: TagWhereInput! = {}): Int
 }
 
-type FileFieldOutput {
-  filename: String!
+type ImageFieldOutput {
+  id: ID!
   filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
   url: String!
+}
+
+enum ImageExtension {
+  jpg
+  png
+  webp
+  gif
 }
 
 type Blog_content_Document {
@@ -146,8 +156,8 @@ enum OrderDirection {
 
 input BlogUpdateInput {
   title: String
-  cardAvatar: FileFieldInput
-  coverPhoto: FileFieldInput
+  cardAvatar: ImageFieldInput
+  coverPhoto: ImageFieldInput
   slug: String
   views: String
   renderedDoc: String
@@ -157,7 +167,7 @@ input BlogUpdateInput {
   tags: TagRelateToManyForUpdateInput
 }
 
-input FileFieldInput {
+input ImageFieldInput {
   upload: Upload!
 }
 
@@ -186,8 +196,8 @@ input BlogUpdateArgs {
 
 input BlogCreateInput {
   title: String
-  cardAvatar: FileFieldInput
-  coverPhoto: FileFieldInput
+  cardAvatar: ImageFieldInput
+  coverPhoto: ImageFieldInput
   slug: String
   views: String
   renderedDoc: String
@@ -314,7 +324,10 @@ type User {
   name: String
   email: String
   slug: String
-  image: FileFieldOutput
+  ytID: String
+  twitchID: String
+  ytVideosID: String
+  image: ImageFieldOutput
   isAdmin: Boolean
   isOnline: Boolean
   password: PasswordState
@@ -351,6 +364,9 @@ input UserWhereInput {
   name: StringFilter
   email: StringFilter
   slug: StringFilter
+  ytID: StringFilter
+  twitchID: StringFilter
+  ytVideosID: StringFilter
   isAdmin: BooleanFilter
   isOnline: BooleanFilter
   blogs: BlogManyRelationFilter
@@ -379,6 +395,9 @@ input UserOrderByInput {
   name: OrderDirection
   email: OrderDirection
   slug: OrderDirection
+  ytID: OrderDirection
+  twitchID: OrderDirection
+  ytVideosID: OrderDirection
   isAdmin: OrderDirection
   isOnline: OrderDirection
 }
@@ -387,7 +406,10 @@ input UserUpdateInput {
   name: String
   email: String
   slug: String
-  image: FileFieldInput
+  ytID: String
+  twitchID: String
+  ytVideosID: String
+  image: ImageFieldInput
   isAdmin: Boolean
   isOnline: Boolean
   password: String
@@ -418,7 +440,10 @@ input UserCreateInput {
   name: String
   email: String
   slug: String
-  image: FileFieldInput
+  ytID: String
+  twitchID: String
+  ytVideosID: String
+  image: ImageFieldInput
   isAdmin: Boolean
   isOnline: Boolean
   password: String
@@ -499,7 +524,7 @@ input TagCreateInput {
 type Class {
   id: ID!
   name: String
-  image: FileFieldOutput
+  image: ImageFieldOutput
   builds(
     where: BuildWhereInput! = {}
     orderBy: [BuildOrderByInput!]! = []
@@ -529,7 +554,7 @@ input ClassOrderByInput {
 
 input ClassUpdateInput {
   name: String
-  image: FileFieldInput
+  image: ImageFieldInput
   builds: BuildRelateToManyForUpdateInput
 }
 
@@ -540,7 +565,7 @@ input ClassUpdateArgs {
 
 input ClassCreateInput {
   name: String
-  image: FileFieldInput
+  image: ImageFieldInput
   builds: BuildRelateToManyForCreateInput
 }
 
